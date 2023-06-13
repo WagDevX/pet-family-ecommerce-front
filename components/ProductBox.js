@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import CartIcon from "./icons/CartIcon";
-import ButtonLink from "./ButtonLink";
+import CartIconPlus from "./icons/CartIconPlus";
 import Link from "next/link";
-import { primary } from "@/lib/colors";
+import { CartContext } from "./CartContext";
+import { useContext } from "react";
+import Button from "./Button";
 
 const ProductWrapper = styled.div`
 `;
@@ -12,7 +13,7 @@ const WhiteBox = styled.div`
   color: inherit;
   background-color: #fff;
   padding: 15px;
-  height: 160px;
+  height: 170px;
   text-align: center;
   display: grid;
   align-items: center;
@@ -50,11 +51,12 @@ const PriceRow = styled.div`
 `;
 
 const Price = styled.div`
-  font-size: 1.3rem;
-  font-weight: 700;
+  font-size: 1.2rem;
+  font-weight: 600;
 `;
 
 export default function ProductBox({ _id, title, description, price, images }) {
+  const {addProduct} = useContext(CartContext);
   const url = "/product/" + _id;
   return (
     <ProductWrapper>
@@ -66,9 +68,9 @@ export default function ProductBox({ _id, title, description, price, images }) {
         <ProductInfoBox>
           <PriceRow>
             <Price>R$ {price}</Price>
-            <ButtonLink href={"/product/" + _id} primary outline>
-              <CartIcon />
-            </ButtonLink>
+            <Button onClick={() => {addProduct(_id)}} outline='true' primary='true'>
+              <CartIconPlus />
+            </Button>
           </PriceRow>
         </ProductInfoBox>
       </WhiteBox>

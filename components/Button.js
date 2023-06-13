@@ -2,6 +2,7 @@ import { primary } from "@/lib/colors";
 import styled, { css } from "styled-components";
 
 export const ButtonStyle = css`
+  transition: all 0.3s ease-in-out;
   text-decoration: none;
   font-size: 1.2rem;
   border: 0;
@@ -17,6 +18,12 @@ export const ButtonStyle = css`
     margin-right: 4px;
   }
   ${(props) =>
+    props.block &&
+    css`
+      display: block;
+      width: 100%;
+    `}
+  ${(props) =>
     props.white &&
     !props.outline &&
     css`
@@ -31,13 +38,33 @@ export const ButtonStyle = css`
       color: #00bd8e;
       border: 1px solid #00bd8e;
     `}
+    ${(props) =>
+    props.black &&
+    !props.outline &&
+    css`
+      background-color: #000;
+      color: #fff;
+    `}
+    ${(props) =>
+    props.black &&
+    props.outline &&
+    css`
+      background-color: transparent;
+      color: #000;
+      border: 1px solid #000;
+    `}
 ${(props) =>
     props.primary &&
     !props.outline &&
     css`
       background-color: ${primary};
       color: #fff;
-      border: 1px solid ${primary}; 
+      border: 1px solid ${primary};
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: white;
+        color: black;
+      }
     `}
 ${(props) =>
     props.primary &&
@@ -46,11 +73,14 @@ ${(props) =>
       background-color: transparent;
       color: ${primary};
       padding: 0px;
-      svg{
+      font-size: 25px;
+      transition: all 0.3s ease-in-out;
+      svg {
         height: 26px;
       }
-      &:hover{
-        color: lightblue; 
+      &:hover {
+        background-color: white;
+        color: black;
       }
     `}
 ${(props) =>

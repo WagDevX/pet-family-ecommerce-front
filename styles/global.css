@@ -1,4 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
 * {
-    font-family: 'Comfortaa', cursive;
+    font-family: 'Poppins', sans-serif;
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.circle {
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    padding: 1px;
+    background: orange;
+    border: 1px solid orange;
+    color: primary;
+    text-align: center;
+    font-weight: bold;
+    font-size: 10px;
+  }
+
+  .badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 90px;
+    -moz-border-radius: 90px;
+    border-radius: 90px;
+  }
+  
+  .label-warning[href],
+  .badge-warning[href] {
+    background-color: blue;
+  }
+  #lblCartCount {
+      font-size: 10px;
+      background: red;
+      color: #fff;
+      padding: 2px 3px 2px 0px;
+      vertical-align: top;
+      margin-left: -10px; 
+  }
+
+  .fa {
+    font-size: 10px;
+  }

@@ -2,19 +2,21 @@ import styled from "styled-components";
 import Center from "./Center";
 import Button from "./Button";
 import ButtonLink from "./ButtonLink";
-import CartIcon from "./icons/CartIcon";
+import CartIcon from "./icons/CartIconPlus";
+import { useContext } from "react";
+import { CartContext } from "./CartContext";
 
 
 const Bg = styled.div`
   background-color: #aaffe2;
   color: #00bd8e;
-  padding: 50px 0;
+  padding: 30px 0;
 `;
 
 const Title = styled.h1`
   margin: 0;
   font-weight: normal;
-  font-size: 3rem;
+  font-size: 2em;
 `;
 
 const SubTitle = styled.h4`
@@ -29,7 +31,7 @@ const Desc = styled.p`
 
 const ColumnsWrapper = styled.div`
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: .9fr 1.1fr;
   gap: 90px;
   img {
     width: 25vh;
@@ -50,6 +52,11 @@ const ButtonsWrapper = styled.div`
 `;
 
 export default function Featured({product}) {
+  const {addProduct} = useContext(CartContext);
+  function addFeaturedToCart() {
+    addProduct(product._id);
+
+  }
   return (
     <Bg>
       <Center>
@@ -64,7 +71,7 @@ export default function Featured({product}) {
                 <ButtonLink href={'/products/'+product._id} outline={1} white={1}>
                   Ler mais
                 </ButtonLink>
-                <Button primary>
+                <Button primary='true' onClick={addFeaturedToCart}>
                   <CartIcon/>
                   Comprar
                 </Button>

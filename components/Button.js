@@ -2,7 +2,7 @@ import { primary } from "@/lib/colors";
 import styled, { css } from "styled-components";
 
 export const ButtonStyle = css`
-  transition: all 0.3s ease-in-out;
+  transition: 0.5s ease;
   text-decoration: none;
   font-size: 1.2rem;
   border: 0;
@@ -13,6 +13,7 @@ export const ButtonStyle = css`
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   svg {
     height: 16px;
     margin-right: 4px;
@@ -60,7 +61,6 @@ ${(props) =>
       background-color: ${primary};
       color: #fff;
       border: 1px solid ${primary};
-      transition: all 0.3s ease-in-out;
       &:hover {
         background-color: white;
         color: black;
@@ -74,7 +74,6 @@ ${(props) =>
       color: ${primary};
       padding: 0px;
       font-size: 25px;
-      transition: all 0.3s ease-in-out;
       svg {
         height: 26px;
       }

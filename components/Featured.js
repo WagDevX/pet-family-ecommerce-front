@@ -16,7 +16,10 @@ const Bg = styled.div`
 const Title = styled.h1`
   margin: 0;
   font-weight: normal;
-  font-size: 2em;
+  font-size: 3rem;
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 const SubTitle = styled.h4`
@@ -34,8 +37,21 @@ const ColumnsWrapper = styled.div`
   grid-template-columns: .9fr 1.1fr;
   gap: 90px;
   img {
-    width: 25vh;
-    border-radius: 15px;
+     max-width: 50%;
+     max-height: 100%;
+  }
+  div:nth-child(1) {
+    order: 0;
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    div:nth-child(1) {
+      order: 2;
+    }
+    img {
+      width: 25vh;
+      border-radius: 15px;
+    }
   }
 `;
 

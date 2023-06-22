@@ -25,7 +25,7 @@
     padding-right: 9px;
     -webkit-border-radius: 90px;
     -moz-border-radius: 90px;
-    border-radius: 90px;
+    border-radius: 100px;
   }
   
   .label-warning[href],
@@ -34,11 +34,11 @@
   }
   #lblCartCount {
       font-size: 10px;
-      background: red;
+      background: #00bd8e;
       color: #fff;
-      padding: 2px 3px 2px 0px;
+      padding: 1px 5px 1px 3px;
       vertical-align: top;
-      margin-left: -10px; 
+      margin-left: -15px; 
   }
 
   .fa {

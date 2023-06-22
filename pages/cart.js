@@ -13,6 +13,9 @@ const ColumnsWrapper = styled.div`
   grid-template-columns: 1.3fr 0.7fr;
   gap: 20px;
   margin-top: 30px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const Box = styled.div`
@@ -21,17 +24,23 @@ const Box = styled.div`
   padding: 30px;
   box-shadow: 1px 2px 2px rgba(25, 50, 47, 0.08),
     0px 3px 4px rgba(18, 71, 52, 0.02), 0px 1px 5px rgba(18, 71, 52, 0.03);
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 const CheckoutBox = styled.div`
   background-color: #fff;
-  min-height: 380px;
-  height: 400px;
+  min-height: 375px;
+  height: 375px;
   padding: 15px;
   border-radius: 10px;
   padding: 30px;
   box-shadow: 1px 2px 2px rgba(25, 50, 47, 0.08),
     0px 3px 4px rgba(18, 71, 52, 0.02), 0px 1px 5px rgba(18, 71, 52, 0.03);
+  @media (max-width: 768px) {
+    padding: 15px;
+  }
 `;
 
 const ProductInfoCell = styled.td`
@@ -62,12 +71,17 @@ const QuantityLabel = styled.span`
   display: flex;
   gap: 3px;
   align-items: center;
+  text-align: center;
+  @media (max-width: 768px) {
+    display: grid;
+  }
 `;
 
 const CityHolder = styled.div`
   display: flex;
   gap: 5px;
 `;
+
 
 export default function CartPage() {
   const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext);
@@ -205,6 +219,15 @@ export default function CartPage() {
                   </tr>
                 </tbody>
               </Table>
+            )}
+            {products?.length > 0 && (
+            <Button
+                onClick={clearCart}
+                block='true'
+                primary='true'
+              >
+                Limpar carrinho
+              </Button>
             )}
           </Box>
           {!!cartProducts?.length && (

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import Center from "./Center";
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import CartIcon from "./icons/CartIcon";
 import Button from "./Button";
+import BarsIcon from "./icons/Bars";
 
 const StyledHeader = styled.header`
   background-color: #AAFFE2;
@@ -13,6 +14,8 @@ const StyledHeader = styled.header`
 const Logo = styled(Link)`
   color: #000;
   text-decoration: none;
+  position: relative;
+  z-index: 3;
 `;
 
 const Wrapper = styled.div`
@@ -22,10 +25,14 @@ const Wrapper = styled.div`
 `;
 
 const NavLink = styled(Link)`
+  display: block;
   transition: all 0.3s ease-in-out;
   color: #00bd8e;
   text-decoration: none;
   position: relative;
+  padding: 10px 0;
+  @media screen and (min-width: 768px) {
+    padding: 0;
   }
   &:hover {
     color: black;
@@ -33,25 +40,58 @@ const NavLink = styled(Link)`
 `;
 
 const StyledNav = styled.nav`
-  display: flex;
+${props => props.mobileNavActive ? `
+  display: block;
+  ` 
+  : 
+  `
+  display: none;
+  `
+  }
   gap: 15px;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: ease-in-out;
+  padding: 50px 20px 20px;
+  background-color: #AAFFE2;
+  @media (min-width: 768px) {
+    display: flex;
+    position: static;
+    padding: 0;
+    
+  }
 `;
 
 const StyledCart = styled.div`
-  position: flex;
   left: 50%;
   transform: translateX(-20%);
-  transform: translateY(-20%);
+  transform: translateY(-15%);
+`;
+
+const NavButton = styled.button`
+   background-color transparent;
+   border: none;
+   color: #00bd8e;
+   cursor: pointer;
+   position: relative;
+  z-index: 3;
+   @media (min-width: 768px) {
+    display: none;
+   }
 `;
 
 export default function Header() {
   const {cartProducts} =useContext(CartContext);
+  const [mobileNavActive, setMobileNavActive] = useState(false);
   return (
     <StyledHeader>
       <Center>
         <Wrapper>
           <Logo href={"/"}>PetFamily</Logo>
-          <StyledNav>
+          <StyledNav mobileNavActive={mobileNavActive}>
             <NavLink href={"/"}>Início</NavLink>
             <NavLink href={"/products"}>Produtos</NavLink>
             <NavLink href={"/categories"}>Categorias</NavLink>
@@ -65,6 +105,9 @@ export default function Header() {
             </NavLink>
             </StyledCart>
           </StyledNav>
+          <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
+              <BarsIcon />
+            </NavButton>
         </Wrapper>
       </Center>
     </StyledHeader>

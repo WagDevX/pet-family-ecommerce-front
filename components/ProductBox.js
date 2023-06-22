@@ -4,39 +4,53 @@ import Link from "next/link";
 import { CartContext } from "./CartContext";
 import { useContext } from "react";
 import Button from "./Button";
+import { primary } from "@/lib/colors";
 
 const ProductWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
 `;
 
 const WhiteBox = styled.div`
+  transition: 0.13s ease;
   text-decoration: none;
   color: inherit;
   background-color: #fff;
   padding: 15px;
-  height: 170px;
+  width: 160px;
+  height: 220px;
   text-align: center;
   display: grid;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  box-shadow: 1px 2px 2px rgba(25, 50, 47, 0.08),
-    0px 3px 4px rgba(18, 71, 52, 0.02), 0px 1px 5px rgba(18, 71, 52, 0.03);
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 3px;
   img {
     max-width: 100%;
-    max-height: 100px;
+    max-height: 150px;
   }
   &:hover {
-    opacity: 0.8;
+    border: 1px solid ${primary};
+    box-shadow: 0 0 0;
+  }
+  @media (max-width: 768px) {
+    height: 220px;
+  }
+  @media (max-width: 393px) {
+    width: 80%;
+    height: 80%;
   }
 `;
 
 const Title = styled(Link)`
   font-weight: normal;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: inherit;
   text-decoration: none;
   margin: 0;
   max-width: 220px;
+  text-align: left;
 `;
 
 const ProductInfoBox = styled.div`
@@ -53,6 +67,7 @@ const PriceRow = styled.div`
 const Price = styled.div`
   font-size: 1.2rem;
   font-weight: 600;
+  color: ${primary};
 `;
 
 export default function ProductBox({ _id, title, description, price, images }) {
@@ -61,10 +76,11 @@ export default function ProductBox({ _id, title, description, price, images }) {
   return (
     <ProductWrapper>
       <WhiteBox>
-        <Title href={url}>{title}</Title>
-        <div>
+        
+        <Link href={'product/'+_id}>
           <img src={images[0]} alt={title} />
-        </div>
+        </Link>
+        <Title href={url}>{title}</Title>
         <ProductInfoBox>
           <PriceRow>
             <Price>R$ {price}</Price>

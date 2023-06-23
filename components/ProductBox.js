@@ -5,6 +5,8 @@ import { CartContext } from "./CartContext";
 import { useContext } from "react";
 import Button from "./Button";
 import { primary } from "@/lib/colors";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ProductWrapper = styled.div`
   display: grid;
@@ -25,7 +27,7 @@ const WhiteBox = styled.div`
   justify-content: center;
   border-radius: 10px;
   border: 1px solid transparent;
-  box-shadow: rgba(0, 0, 0, 0.10) 0px 2px 3px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 3px;
   img {
     max-width: 100%;
     max-height: 150px;
@@ -70,21 +72,52 @@ const Price = styled.div`
   color: ${primary};
 `;
 
+const StyledNotification = styled.div`
+   display: flex;
+   align-items: center;
+`;
+
 export default function ProductBox({ _id, title, description, price, images }) {
-  const {addProduct} = useContext(CartContext);
+  const notify = () => {
+    toast.success(
+      <StyledNotification>
+          <img src={images[0]} alt={title} style={{ marginRight: "3px", width: "80px", height: "80px" }} />
+          <div>
+          <span style={{ fontWeight: "bold" }}>{title}</span> adicionado ao carrinho!
+          </div>
+          
+      </StyledNotification>,
+      {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
+  };
+  const { addProduct } = useContext(CartContext);
   const url = "/product/" + _id;
   return (
     <ProductWrapper>
       <WhiteBox>
-        
-        <Link href={'product/'+_id}>
+        <Link href={"product/" + _id}>
           <img src={images[0]} alt={title} />
         </Link>
         <Title href={url}>{title}</Title>
         <ProductInfoBox>
           <PriceRow>
             <Price>R$ {price}</Price>
-            <Button onClick={() => {addProduct(_id)}} outline='true' primary='true'>
+            <Button
+              onClick={() => {
+                addProduct(_id);
+                notify();
+              }}
+              outline="true"
+              primary="true"
+            >
               <CartIconPlus />
             </Button>
           </PriceRow>

@@ -8,6 +8,8 @@ import CartIconPlus from "@/components/icons/CartIconPlus";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import { useContext } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
 const WhiteBox = styled.div`
@@ -37,9 +39,34 @@ const PriceRow = styled.div`
 const Price = styled.span`
     font-size: 1.8rem;
 `;
+
+const StyledNotification = styled.div`
+   display: flex;
+   align-items: center;
+`;
+
 export default function ProductPage({ product }) {
   const {addProduct} = useContext(CartContext);
-  console.log(product.properties);
+  const notify = () => {
+    toast.success(
+      <StyledNotification>
+          <img src={product.images[0]} alt={product.title} style={{ marginRight: "3px", width: "80px", height: "80px" }} />
+          <div>
+          <span style={{ fontWeight: "bold" }}>{product.title}</span> adicionado ao carrinho!
+          </div>
+          
+      </StyledNotification>,
+      {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
+  };
   return (
     <>
       <Header />
@@ -54,7 +81,10 @@ export default function ProductPage({ product }) {
             <PriceRow>
             <Price>R$ {product.price}</Price>
             <div>
-              <Button primary='true' onClick={() => addProduct(product._id)}>
+              <Button primary='true' onClick={() => {
+                addProduct(product._id);
+                notify();
+                }}>
                 <CartIconPlus />
                 Adicionar ao carrinho
               </Button>

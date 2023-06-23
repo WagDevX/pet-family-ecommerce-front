@@ -8,7 +8,10 @@ import Button from "./Button";
 import BarsIcon from "./icons/Bars";
 
 const StyledHeader = styled.header`
-  background-color: #AAFFE2;
+  background-color: #aaffe2;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 const Logo = styled(Link)`
@@ -40,14 +43,14 @@ const NavLink = styled(Link)`
 `;
 
 const StyledNav = styled.nav`
-${props => props.mobileNavActive ? `
+  ${(props) =>
+    props.mobileNavActive
+      ? `
   display: block;
-  ` 
-  : 
   `
+      : `
   display: none;
-  `
-  }
+  `}
   gap: 15px;
   position: fixed;
   top: 0;
@@ -56,12 +59,11 @@ ${props => props.mobileNavActive ? `
   right: 0;
   transition: ease-in-out;
   padding: 50px 20px 20px;
-  background-color: #AAFFE2;
+  background-color: #aaffe2;
   @media (min-width: 768px) {
     display: flex;
     position: static;
     padding: 0;
-    
   }
 `;
 
@@ -84,7 +86,7 @@ const NavButton = styled.button`
 `;
 
 export default function Header() {
-  const {cartProducts} =useContext(CartContext);
+  const { cartProducts } = useContext(CartContext);
   const [mobileNavActive, setMobileNavActive] = useState(false);
   return (
     <StyledHeader>
@@ -97,17 +99,22 @@ export default function Header() {
             <NavLink href={"/categories"}>Categorias</NavLink>
             <NavLink href={"/account"}>Conta</NavLink>
             <StyledCart>
-            <NavLink href={"/cart"}>
-            <Button primary='true' outline='true' className="fa"><CartIcon/></Button>
-            {cartProducts?.length > 0 && (
-              <span className='badge badge-success' id='lblCartCount'> {cartProducts.length}</span>
-            )}
-            </NavLink>
+              <NavLink href={"/cart"}>
+                <Button primary="true" outline="true" className="fa">
+                  <CartIcon />
+                </Button>
+                {cartProducts?.length > 0 && (
+                  <span className="badge badge-success" id="lblCartCount">
+                    {" "}
+                    {cartProducts.length}
+                  </span>
+                )}
+              </NavLink>
             </StyledCart>
           </StyledNav>
-          <NavButton onClick={() => setMobileNavActive(prev => !prev)}>
-              <BarsIcon />
-            </NavButton>
+          <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
+            <BarsIcon />
+          </NavButton>
         </Wrapper>
       </Center>
     </StyledHeader>

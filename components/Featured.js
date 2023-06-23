@@ -5,7 +5,9 @@ import ButtonLink from "./ButtonLink";
 import CartIcon from "./icons/CartIconPlus";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { RevealWrapper } from "next-reveal";
 
 const Bg = styled.div`
   background-color: #aaffe2;
@@ -34,11 +36,11 @@ const Desc = styled.p`
 
 const ColumnsWrapper = styled.div`
   display: grid;
-  grid-template-columns: .9fr 1.1fr;
+  grid-template-columns: 0.9fr 1.1fr;
   gap: 90px;
   img {
-     max-width: 50%;
-     max-height: 100%;
+    max-width: 50%;
+    max-height: 100%;
   }
   div:nth-child(1) {
     order: 0;
@@ -67,11 +69,39 @@ const ButtonsWrapper = styled.div`
   margin-top: 25px;
 `;
 
-export default function Featured({product}) {
-  const {addProduct} = useContext(CartContext);
+const StyledNotification = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export default function Featured({ product }) {
+  const { addProduct } = useContext(CartContext);
+  const notify = () => {
+    toast.success(
+      <StyledNotification>
+        <img
+          src={product.images[0]}
+          alt={product.title}
+          style={{ marginRight: "3px", width: "80px", height: "80px" }}
+        />
+        <div>
+          <span style={{ fontWeight: "bold" }}>{product.title}</span> adicionado
+          ao carrinho!
+        </div>
+      </StyledNotification>,
+      {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
+  };
   function addFeaturedToCart() {
     addProduct(product._id);
-
   }
   return (
     <Bg>
@@ -79,24 +109,41 @@ export default function Featured({product}) {
         <ColumnsWrapper>
           <Column>
             <div>
+              
+              <RevealWrapper origin={'left'}>
               <Title>{product.title}</Title>
-              <Desc>
-                {product.description}
-              </Desc>
+              <Desc>{product.description}</Desc>
               <ButtonsWrapper>
-                <ButtonLink href={'/products/'+product._id} outline={1} white={1}>
+                <ButtonLink
+                  href={"/products/" + product._id}
+                  outline={1}
+                  white={1}
+                >
                   Ler mais
                 </ButtonLink>
-                <Button primary='true' onClick={addFeaturedToCart}>
-                  <CartIcon/>
+                <Button
+                  primary="true"
+                  onClick={() => {
+                    addFeaturedToCart();
+                    notify();
+                  }}
+                >
+                  <CartIcon />
                   Comprar
                 </Button>
               </ButtonsWrapper>
+
+              </RevealWrapper>
+              
             </div>
           </Column>
+
           <Column>
-            <img src={product.images[0]}></img>
-            <img src='https://wagner-nextjs-ecommerce.s3.amazonaws.com/1686553210801.png'></img>
+            <RevealWrapper>
+              <img src={product.images[0]}></img>
+
+              <img src="https://wagner-nextjs-ecommerce.s3.amazonaws.com/1686553210801.png"></img>
+            </RevealWrapper>
           </Column>
         </ColumnsWrapper>
       </Center>

@@ -7,6 +7,7 @@ import styled from "styled-components";
 import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
+import { RevealWrapper } from "next-reveal";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -82,9 +83,9 @@ const CityHolder = styled.div`
   gap: 5px;
 `;
 
-
 export default function CartPage() {
-  const { cartProducts, addProduct, removeProduct, clearCart } = useContext(CartContext);
+  const { cartProducts, addProduct, removeProduct, clearCart } =
+    useContext(CartContext);
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -105,23 +106,21 @@ export default function CartPage() {
       setProducts([]);
     }
   }, [cartProducts]);
-  
 
   useEffect(() => {
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
-    if (window.location.href.includes('success')) {
+    if (window.location.href.includes("success")) {
       setIsSuccess(true);
       clearCart();
     }
   }, []);
 
-
   function moreOfThisProduct(id) {
     addProduct(id);
   }
-  
+
   function lessOfthisProduct(id) {
     removeProduct(id);
   }
@@ -130,106 +129,112 @@ export default function CartPage() {
     const price = products.find((p) => p._id === productId)?.price || 0;
     total += price;
   }
-   
+
   async function goToPayment() {
-    const response = await axios.post('/api/checkout', {
-      name, email, city, 
-      zipCode, state, district, streetAddress, complement, cartProducts,
+    const response = await axios.post("/api/checkout", {
+      name,
+      email,
+      city,
+      zipCode,
+      state,
+      district,
+      streetAddress,
+      complement,
+      cartProducts,
     });
     if (response.data.url) {
       window.location = response.data.url;
     }
-   }
-   
-   if (isSuccess) {
-     return (
+  }
+
+  if (isSuccess) {
+    return (
       <>
-      <Header />
-      <Center>
-        <ColumnsWrapper>
-        <Box>
-          <h1>Obrigado pela sua compra!</h1>
-          <p>Enviaremos um email com mais informações.</p>
-        </Box>
-        </ColumnsWrapper>
-      </Center>
+        <Header />
+        <Center>
+          <ColumnsWrapper>
+            <Box>
+              <h1>Obrigado pela sua compra!</h1>
+              <p>Enviaremos um email com mais informações.</p>
+            </Box>
+          </ColumnsWrapper>
+        </Center>
       </>
-     );
-   }
+    );
+  }
   return (
     <>
       <Header />
       <Center>
         <ColumnsWrapper>
-          <Box>
-            <h2>Carrinho</h2>
-            {!cartProducts?.length && <div>Seu carrinho está vazio</div>}
-            {products?.length > 0 && (
-              <Table>
-                <thead>
-                  <tr>
-                    <th>Produto</th>
-                    <th>Quantidade</th>
-                    <th>Preço</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products?.map((product) => (
+          <RevealWrapper delay={0}>
+            <Box>
+              <h2>Carrinho</h2>
+              {!cartProducts?.length && <div>Seu carrinho está vazio</div>}
+              {products?.length > 0 && (
+                <Table>
+                  <thead>
                     <tr>
-                      <ProductInfoCell>
-                        <ProductImageBox>
-                          <img
-                            src={product.images[0]}
-                            alt={product.title}
-                          ></img>
-                        </ProductImageBox>
-                        {product.title}
-                      </ProductInfoCell>
-                      <td>
-                        <QuantityLabel>
-                          <Button
-                            onClick={() => lessOfthisProduct(product._id)}
-                          >
-                            -
-                          </Button>
-                          {
-                            cartProducts.filter((id) => id === product._id)
-                              .length
-                          }
-                          <Button
-                            onClick={() => moreOfThisProduct(product._id)}
-                          >
-                            +
-                          </Button>
-                        </QuantityLabel>
-                      </td>
-                      <td>
-                        R$
-                        {(
-                          cartProducts.filter((id) => id === product._id)
-                            .length * product.price
-                        ).toFixed(2)}
-                      </td>
+                      <th>Produto</th>
+                      <th>Quantidade</th>
+                      <th>Preço</th>
                     </tr>
-                  ))}
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td>R${total.toFixed(2)}</td>
-                  </tr>
-                </tbody>
-              </Table>
-            )}
-            {products?.length > 0 && (
-            <Button
-                onClick={clearCart}
-                block='true'
-                primary='true'
-              >
-                Limpar carrinho
-              </Button>
-            )}
-          </Box>
+                  </thead>
+                  <tbody>
+                    {products?.map((product) => (
+                      <tr>
+                        <ProductInfoCell>
+                          <ProductImageBox>
+                            <img
+                              src={product.images[0]}
+                              alt={product.title}
+                            ></img>
+                          </ProductImageBox>
+                          {product.title}
+                        </ProductInfoCell>
+                        <td>
+                          <QuantityLabel>
+                            <Button
+                              onClick={() => lessOfthisProduct(product._id)}
+                            >
+                              -
+                            </Button>
+                            {
+                              cartProducts.filter((id) => id === product._id)
+                                .length
+                            }
+                            <Button
+                              onClick={() => moreOfThisProduct(product._id)}
+                            >
+                              +
+                            </Button>
+                          </QuantityLabel>
+                        </td>
+                        <td>
+                          R$
+                          {(
+                            cartProducts.filter((id) => id === product._id)
+                              .length * product.price
+                          ).toFixed(2)}
+                        </td>
+                      </tr>
+                    ))}
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td>R${total.toFixed(2)}</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              )}
+              {products?.length > 0 && (
+                <Button onClick={clearCart} block="true" primary="true">
+                  Limpar carrinho
+                </Button>
+              )}
+            </Box>
+          </RevealWrapper>
+          <RevealWrapper delay={100}>
           {!!cartProducts?.length && (
             <CheckoutBox>
               <h2>Finalizar compra</h2>
@@ -291,15 +296,12 @@ export default function CartPage() {
                 name="complement"
                 onChange={(ev) => setComplement(ev.target.value)}
               />
-              <Button
-                onClick={goToPayment}
-                block='true'
-                primary='true'
-              >
+              <Button onClick={goToPayment} block="true" primary="true">
                 Ir para pagamento
               </Button>
             </CheckoutBox>
           )}
+          </RevealWrapper>
         </ColumnsWrapper>
       </Center>
     </>

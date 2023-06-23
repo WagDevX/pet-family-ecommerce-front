@@ -13,6 +13,14 @@ const Bg = styled.div`
   background-color: #aaffe2;
   color: #00bd8e;
   padding: 30px 0;
+  animation: 2s spotlight  reverse ease-in-out; 
+  @keyframes spotlight {
+    0% { clip-path: circle(100% at 50% 50%); }
+    25% { clip-path: circle(20% at 50% 50%); }
+    50% { clip-path: circle(20% at 12% 84%); }
+    75% { clip-path: circle(20% at 93% 51%); }
+    100% { clip-path: circle(20% at -30% 20%); }
+  }
 `;
 
 const Title = styled.h1`
@@ -109,37 +117,34 @@ export default function Featured({ product }) {
         <ColumnsWrapper>
           <Column>
             <div>
-              
-              <RevealWrapper origin={'left'}>
-              <Title>{product.title}</Title>
-              <Desc>{product.description}</Desc>
-              <ButtonsWrapper>
-                <ButtonLink
-                  href={"/products/" + product._id}
-                  outline={1}
-                  white={1}
-                >
-                  Ler mais
-                </ButtonLink>
-                <Button
-                  primary="true"
-                  onClick={() => {
-                    addFeaturedToCart();
-                    notify();
-                  }}
-                >
-                  <CartIcon />
-                  Comprar
-                </Button>
-              </ButtonsWrapper>
-
+              <RevealWrapper origin={"left"} delay={0}>
+                <Title>{product.title}</Title>
+                <Desc>{product.description}</Desc>
+                <ButtonsWrapper>
+                  <ButtonLink
+                    href={"/products/" + product._id}
+                    outline={1}
+                    white={1}
+                  >
+                    Ler mais
+                  </ButtonLink>
+                  <Button
+                    primary="true"
+                    onClick={() => {
+                      addFeaturedToCart();
+                      notify();
+                    }}
+                  >
+                    <CartIcon />
+                    Comprar
+                  </Button>
+                </ButtonsWrapper>
               </RevealWrapper>
-              
             </div>
           </Column>
 
           <Column>
-            <RevealWrapper>
+            <RevealWrapper delay={0}>
               <img src={product.images[0]}></img>
 
               <img src="https://wagner-nextjs-ecommerce.s3.amazonaws.com/1686553210801.png"></img>

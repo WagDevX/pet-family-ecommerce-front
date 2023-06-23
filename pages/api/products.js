@@ -3,8 +3,8 @@ import { Product } from "@/models/Product";
 
 export default async function handle(req, res) {
   await mongooseConnect();
-  const { categories, sort, ...filters } = req.query;
-  const [sortField, sortOrder] = sort.split('_');
+  const { categories, sort, phrase, ...filters } = req.query;
+  let [sortField, sortOrder] = (sort || "_id-desc").split("_");
 
   // Criar um objeto de filtro para as propriedades
   const propertiesFilter = {};
@@ -13,19 +13,32 @@ export default async function handle(req, res) {
   }
 
   // Filtrar os produtos com base nas categorias e nas propriedades
-  let products = Product.find({
-    category: categories.split(','),
-    ...propertiesFilter,
-  });
+  let products = {};
+
+  if (categories) {
+    products = Product.find({
+      category: categories.split(","),
+      ...propertiesFilter,
+    });
+  }
+
+  if (phrase) {
+    products = Product.find({
+      $or: [
+        { title: { $regex: phrase, $options: "i" } },
+        { description: { $regex: phrase, $options: "i" } },
+      ],
+    });
+  }
 
   // Aplicar o filtro de ordenação
   if (sortField && sortOrder) {
     const sortOptions = {};
-    sortOptions[sortField] = sortOrder === 'asc' ? -1 : 1;
+    sortOptions[sortField] = sortOrder === "asc" ? -1 : 1;
     products = products.sort(sortOptions);
   }
 
-  products = await products.exec();
+  products  = await products.exec();
 
   res.json(products);
 }

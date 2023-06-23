@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProductWrapper = styled.div`
+  padding: 2px;
   display: grid;
   grid-template-columns: 1fr;
 `;

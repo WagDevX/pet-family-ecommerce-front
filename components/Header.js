@@ -134,7 +134,7 @@ export default function Header() {
                 )}
               </NavLink>
             </StyledCart>
-          <NavLink href={"/"}><SearchIcon/></NavLink>
+          <NavLink href={"/search"}><SearchIcon/></NavLink>
           <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
             <BarsIcon />
             </NavButton>

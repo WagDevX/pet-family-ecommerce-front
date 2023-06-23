@@ -13,14 +13,6 @@ const Bg = styled.div`
   background-color: #aaffe2;
   color: #00bd8e;
   padding: 30px 0;
-  animation: 2s spotlight  reverse ease-in-out; 
-  @keyframes spotlight {
-    0% { clip-path: circle(100% at 50% 50%); }
-    25% { clip-path: circle(20% at 50% 50%); }
-    50% { clip-path: circle(20% at 12% 84%); }
-    75% { clip-path: circle(20% at 93% 51%); }
-    100% { clip-path: circle(20% at -30% 20%); }
-  }
 `;
 
 const Title = styled.h1`

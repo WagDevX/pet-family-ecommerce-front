@@ -1,3 +1,4 @@
+import Button from "@/components/Button";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
 import ProductsGrid from "@/components/ProductsGrid";
@@ -8,6 +9,7 @@ import { Product } from "@/models/Product";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { RevealWrapper } from "next-reveal";
 
 const CategoryHeader = styled.div`
   display: grid;
@@ -18,11 +20,21 @@ const CategoryHeader = styled.div`
   }
 `;
 
+const CategoryHeaderTitles = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+`;
+
 const FiltersWrapper = styled.div`
+  overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 10px;
   margin-bottom: 30px;
+  @media (min-width: 768px) { 
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 `;
 
 const Filter = styled.div`
@@ -45,13 +57,17 @@ export default function CategoryPage({
   subCategories,
   products: originalProducts,
 }) {
-  const defaultSorting = 'price_desc';
-  const defaultFiltersValues = category.properties.map((p) => ({ name: p.name, value: "all" }));
+  const defaultSorting = "price_desc";
+  const defaultFiltersValues = category.properties.map((p) => ({
+    name: p.name,
+    value: "all",
+  }));
   const [products, setProducts] = useState(originalProducts);
   const [filtersValues, setFiltersValues] = useState(defaultFiltersValues);
   const [sort, setSort] = useState(defaultSorting);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [filtersChanged, setFiltersChanged] = useState(false);
+  const [showFilters, setShowfilters] = useState(false);
   function handleFilterChange(filterName, filterValue) {
     setFiltersValues((prev) => {
       return prev.map((p) => ({
@@ -89,9 +105,20 @@ export default function CategoryPage({
       <Header />
       <Center>
         <CategoryHeader>
-          <h1>{category.name}</h1>
-          <FiltersWrapper>
-            {category.properties.map((prop) => (
+          <CategoryHeaderTitles>
+            <h1>{category.name}</h1>
+            <Button 
+            primary='true' 
+            outline='true' 
+            onClick={() => 
+            showFilters === false ? setShowfilters(true) : setShowfilters(false)}>
+              Filtrar por &darr;
+            </Button>
+          </CategoryHeaderTitles>
+          {showFilters && (
+            <FiltersWrapper>
+            {category.properties.map((prop, index) => (
+              <RevealWrapper delay={index*50}>
               <Filter key={prop.name}>
                 <span>{prop.name}:</span>
                 <select
@@ -108,32 +135,36 @@ export default function CategoryPage({
                   ))}
                 </select>
               </Filter>
+              </RevealWrapper>
             ))}
+            <RevealWrapper delay={category.properties.length*50}>
             <Filter>
               <span>Ordenar:</span>
-              <select value={sort} onChange={(ev) => {
-                setSort(ev.target.value);
-                setFiltersChanged(true);
-              }}>
+              <select
+                value={sort}
+                onChange={(ev) => {
+                  setSort(ev.target.value);
+                  setFiltersChanged(true);
+                }}
+              >
                 <option value="price_asc">Preço maior</option>
                 <option value="price_desc">Preço menor</option>
               </select>
             </Filter>
+            </RevealWrapper>
           </FiltersWrapper>
+          )}
+          
         </CategoryHeader>
-        {loadingProducts && (
-        <Spinner fullWidth />
-        )}
+        {loadingProducts && <Spinner fullWidth />}
         {!loadingProducts && (
           <div>
-            {products.length > 0 && (
-              <ProductsGrid products={products}/>
-            )}
-             {products.length === 0 && (
+            {products.length > 0 && <ProductsGrid products={products} />}
+            {products.length === 0 && (
               <div>Desculpe, nenhum produto encontrado com esses filtros</div>
-             )} 
+            )}
           </div>
-         )}
+        )}
       </Center>
     </>
   );

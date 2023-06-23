@@ -10,9 +10,11 @@ import { RevealWrapper } from "next-reveal";
 
 const CategoryGrid = styled.div`
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     @media (max-width: 768px) {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: .1fr .1fr;
+        spacing: 0;
+        gap: 15px;
     }
 `;
 
@@ -89,7 +91,7 @@ export async function getServerSideProps () {
         .map(c => c._id.toString());
         const categoriesIds = [mainCatId, ...childCatIds];
         const products = await Product
-        .find({category: categoriesIds}, null, {limit:3, sort:{'_id':-1}})
+        .find({category: categoriesIds}, null, {limit:4, sort:{'_id':-1}})
         categoriesProducts[mainCat._id] = products;
         
     }

@@ -6,6 +6,8 @@ import { CartContext } from "./CartContext";
 import CartIcon from "./icons/CartIcon";
 import Button from "./Button";
 import BarsIcon from "./icons/Bars";
+import SearchIcon from "./icons/SearchIcon";
+import { primary } from "@/lib/colors";
 
 const StyledHeader = styled.header`
   background-color: #aaffe2;
@@ -28,6 +30,7 @@ const Wrapper = styled.div`
 `;
 
 const NavLink = styled(Link)`
+  min-width: 30px;
   display: block;
   transition: all 0.3s ease-in-out;
   color: #00bd8e;
@@ -39,6 +42,9 @@ const NavLink = styled(Link)`
   }
   &:hover {
     color: black;
+  }
+  svg {
+    height: 20px;
   }
 `;
 
@@ -70,7 +76,7 @@ const StyledNav = styled.nav`
 const StyledCart = styled.div`
   left: 50%;
   transform: translateX(-20%);
-  transform: translateY(-15%);
+  transform: translateY(0%);
 `;
 
 const NavButton = styled.button`
@@ -82,6 +88,20 @@ const NavButton = styled.button`
   z-index: 3;
    @media (min-width: 768px) {
     display: none;
+   }
+`;
+const SideIcons = styled.div`
+   gap: 10px;
+   display: flex;
+   align-items: center;
+   a {
+    display: inline-block;
+    min-width: 20px;
+    color: ${primary};
+   }
+   svg {
+    width: 22px;
+    height: 22px;
    }
 `;
 
@@ -98,7 +118,10 @@ export default function Header() {
             <NavLink href={"/products"}>Produtos</NavLink>
             <NavLink href={"/categories"}>Categorias</NavLink>
             <NavLink href={"/account"}>Conta</NavLink>
-            <StyledCart>
+            
+          </StyledNav>
+          <SideIcons>
+          <StyledCart>
               <NavLink href={"/cart"}>
                 <Button primary="true" outline="true" className="fa">
                   <CartIcon />
@@ -111,10 +134,13 @@ export default function Header() {
                 )}
               </NavLink>
             </StyledCart>
-          </StyledNav>
+          <NavLink href={"/"}><SearchIcon/></NavLink>
           <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
             <BarsIcon />
-          </NavButton>
+            </NavButton>
+          </SideIcons>
+          
+          
         </Wrapper>
       </Center>
     </StyledHeader>

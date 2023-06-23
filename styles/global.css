@@ -33,12 +33,12 @@
     background-color: blue;
   }
   #lblCartCount {
-      font-size: 10px;
+      font-size: 9px;
       background: #00bd8e;
       color: #fff;
       padding: 1px 5px 1px 3px;
       vertical-align: top;
-      margin-left: -15px; 
+      margin-left: -12px; 
   }
 
   .fa {

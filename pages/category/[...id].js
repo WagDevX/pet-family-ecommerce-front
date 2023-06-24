@@ -127,7 +127,7 @@ export default function CategoryPage({
                   }
                   value={filtersValues.find((f) => f.name === prop.name).value}
                 >
-                  <option value="all">Tudo</option>
+                  <option value="all">Sem filtro</option>
                   {prop.values.map((val) => (
                     <option key={val} value={val}>
                       {val}

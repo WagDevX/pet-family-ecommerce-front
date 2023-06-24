@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import "@/styles/global.css";
 import { CartContexrProvider } from "@/components/CartContext";
 import { ToastContainer } from "react-toastify";
+import { SessionProvider } from "next-auth/react";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -9,17 +10,23 @@ const GlobalStyles = createGlobalStyle`
     margin: 0;
     background-color: #fff;
   }
-
+  hr {
+    display: block;
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
 `;
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: {session, ...pageProps} }) {
   return (
     <>
       <GlobalStyles />
-      <ToastContainer />
-      <CartContexrProvider>
-        <Component {...pageProps} />
-      </CartContexrProvider>
+      <SessionProvider session={session}>
+        <ToastContainer />
+        <CartContexrProvider>
+          <Component {...pageProps} />
+        </CartContexrProvider>
+      </SessionProvider>
     </>
   );
 }

@@ -7,11 +7,11 @@ const Title = styled.h2`
     margin: 20px 0 20px;
 `;
 
-export default function NewProducts({products}) {
+export default function NewProducts({products, wishedProducts}) {
 return (
     <Center>
         <Title>Produtos</Title>
-        <ProductsGrid products={products} />
+        <ProductsGrid products={products} wishedProducts={wishedProducts} />
         <Title>Marcas</Title>
     </Center>
 );

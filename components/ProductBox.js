@@ -2,11 +2,14 @@ import styled from "styled-components";
 import CartIconPlus from "./icons/CartIconPlus";
 import Link from "next/link";
 import { CartContext } from "./CartContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
 import { primary } from "@/lib/colors";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import HeartOutlineIcon from "./icons/HeartOutlineIcon";
+import HeartSolidIcon from "./icons/HeartSolidIcon";
+import axios from "axios";
 
 const ProductWrapper = styled.div`
   padding: 2px;
@@ -15,13 +18,14 @@ const ProductWrapper = styled.div`
 `;
 
 const WhiteBox = styled.div`
+  position: relative;
   transition: 0.13s ease;
   text-decoration: none;
   color: inherit;
   background-color: #fff;
   padding: 15px;
   width: 160px;
-  height: 220px;
+  height: 240px;
   text-align: center;
   display: grid;
   align-items: center;
@@ -44,6 +48,30 @@ const WhiteBox = styled.div`
     width: 80%;
     height: 80%;
   }
+  u {
+    text-align: left;
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+`;
+const WishButton = styled.button`
+    border: 0;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    background-color: transparent;
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    ${props => props.wished ? `
+     color: red;
+    ` : `
+     color: ${primary};
+    `}
+    svg{
+      width: 20px;
+    }
 `;
 
 const Title = styled(Link)`
@@ -74,19 +102,31 @@ const Price = styled.div`
 `;
 
 const StyledNotification = styled.div`
-   display: flex;
-   align-items: center;
+  display: flex;
+  align-items: center;
 `;
 
-export default function ProductBox({ _id, title, description, price, images }) {
+export default function ProductBox({
+  _id,
+  title,
+  description,
+  price,
+  images,
+  properties,
+  wished=false,
+}) {
   const notify = () => {
     toast.success(
       <StyledNotification>
-          <img src={images[0]} alt={title} style={{ marginRight: "3px", width: "80px", height: "80px" }} />
-          <div>
-          <span style={{ fontWeight: "bold" }}>{title}</span> adicionado ao carrinho!
-          </div>
-          
+        <img
+          src={images[0]}
+          alt={title}
+          style={{ marginRight: "3px", width: "80px", height: "80px" }}
+        />
+        <div>
+          <span style={{ fontWeight: "bold" }}>{title}</span> adicionado ao
+          carrinho!
+        </div>
       </StyledNotification>,
       {
         position: "bottom-right",
@@ -101,12 +141,26 @@ export default function ProductBox({ _id, title, description, price, images }) {
   };
   const { addProduct } = useContext(CartContext);
   const url = "/product/" + _id;
+  const [isWished, setIsWished] = useState(wished);
+  function addToWishList() {
+      const nextValue = !isWished;
+      axios.post('/api/wishlist', {
+        product: _id
+      }).then(() => {})
+      setIsWished(nextValue);
+
+  }
+
   return (
     <ProductWrapper>
       <WhiteBox>
+        <WishButton wished={isWished} onClick={addToWishList}>
+          {isWished ? <HeartSolidIcon/> : <HeartOutlineIcon/>}
+        </WishButton>
         <Link href={"product/" + _id}>
           <img src={images[0]} alt={title} />
         </Link>
+        <u>{properties.Marca}</u>
         <Title href={url}>{title}</Title>
         <ProductInfoBox>
           <PriceRow>

@@ -101,6 +101,16 @@ export default function CartPage() {
     if (cartProducts.length > 0) {
       axios.post("/api/cart", { ids: cartProducts }).then((response) => {
         setProducts(response.data);
+        axios.get("/api/address").then((response) => {
+          setName(response.data.name);
+          setEmail(response.data.email);
+          setCity(response.data.city);
+          setZipCode(response.data.zipCode);
+          setState(response.data.state);
+          setDistrict(response.data.district);
+          setStreetAddress(response.data.streetAddress);
+          setComplement(response.data.complement);
+        });
       });
     } else {
       setProducts([]);
@@ -235,72 +245,72 @@ export default function CartPage() {
             </Box>
           </RevealWrapper>
           <RevealWrapper delay={100}>
-          {!!cartProducts?.length && (
-            <CheckoutBox>
-              <h2>Finalizar compra</h2>
-              <Input
-                type="text"
-                placeholder="Name"
-                value={name}
-                name="name"
-                onChange={(ev) => setName(ev.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="Email"
-                value={email}
-                name="email"
-                onChange={(ev) => setEmail(ev.target.value)}
-              />
-              <CityHolder>
+            {!!cartProducts?.length && (
+              <CheckoutBox>
+                <h2>Finalizar compra</h2>
                 <Input
                   type="text"
-                  placeholder="Cidade"
-                  value={city}
-                  name="city"
-                  onChange={(ev) => setCity(ev.target.value)}
+                  placeholder="Name"
+                  value={name}
+                  name="name"
+                  onChange={(ev) => setName(ev.target.value)}
                 />
                 <Input
                   type="text"
-                  placeholder="CEP"
-                  value={zipCode}
-                  name="zipCode"
-                  onChange={(ev) => setZipCode(ev.target.value)}
+                  placeholder="Email"
+                  value={email}
+                  name="email"
+                  onChange={(ev) => setEmail(ev.target.value)}
                 />
-              </CityHolder>
-              <Input
-                type="text"
-                placeholder="Estado"
-                value={state}
-                name="state"
-                onChange={(ev) => setState(ev.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="Bairro"
-                value={district}
-                name="district"
-                onChange={(ev) => setDistrict(ev.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="Endereço ex: R. Augusta, 145"
-                value={streetAddress}
-                name="streetAddress"
-                onChange={(ev) => setStreetAddress(ev.target.value)}
-              />
-              <Input
-                type="text"
-                placeholder="Complemento ex: Apt 10"
-                value={complement}
-                name="complement"
-                onChange={(ev) => setComplement(ev.target.value)}
-              />
-              <Button onClick={goToPayment} block="true" primary="true">
-                Ir para pagamento
-              </Button>
-            </CheckoutBox>
-          )}
+                <CityHolder>
+                  <Input
+                    type="text"
+                    placeholder="Cidade"
+                    value={city}
+                    name="city"
+                    onChange={(ev) => setCity(ev.target.value)}
+                  />
+                  <Input
+                    type="text"
+                    placeholder="CEP"
+                    value={zipCode}
+                    name="zipCode"
+                    onChange={(ev) => setZipCode(ev.target.value)}
+                  />
+                </CityHolder>
+                <Input
+                  type="text"
+                  placeholder="Estado"
+                  value={state}
+                  name="state"
+                  onChange={(ev) => setState(ev.target.value)}
+                />
+                <Input
+                  type="text"
+                  placeholder="Bairro"
+                  value={district}
+                  name="district"
+                  onChange={(ev) => setDistrict(ev.target.value)}
+                />
+                <Input
+                  type="text"
+                  placeholder="Endereço ex: R. Augusta, 145"
+                  value={streetAddress}
+                  name="streetAddress"
+                  onChange={(ev) => setStreetAddress(ev.target.value)}
+                />
+                <Input
+                  type="text"
+                  placeholder="Complemento ex: Apt 10"
+                  value={complement}
+                  name="complement"
+                  onChange={(ev) => setComplement(ev.target.value)}
+                />
+                <Button onClick={goToPayment} block="true" primary="true">
+                  Ir para pagamento
+                </Button>
+              </CheckoutBox>
+            )}
           </RevealWrapper>
         </ColumnsWrapper>
       </Center>

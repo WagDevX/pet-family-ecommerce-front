@@ -114,6 +114,7 @@ export default function ProductBox({
   images,
   properties,
   wished=false,
+  onRemoveFromWishList=()=>{}
 }) {
   const notify = () => {
     toast.success(
@@ -144,6 +145,9 @@ export default function ProductBox({
   const [isWished, setIsWished] = useState(wished);
   function addToWishList() {
       const nextValue = !isWished;
+      if (nextValue === false && onRemoveFromWishList) {
+        onRemoveFromWishList(_id);
+      }
       axios.post('/api/wishlist', {
         product: _id
       }).then(() => {})

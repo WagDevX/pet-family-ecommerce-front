@@ -8,6 +8,7 @@ import axios from "axios";
 import Table from "@/components/Table";
 import Input from "@/components/Input";
 import { RevealWrapper } from "next-reveal";
+import { useSession } from "next-auth/react";
 
 const ColumnsWrapper = styled.div`
   display: grid;
@@ -86,6 +87,7 @@ const CityHolder = styled.div`
 export default function CartPage() {
   const { cartProducts, addProduct, removeProduct, clearCart } =
     useContext(CartContext);
+  const {data:session} = useSession();
   const [products, setProducts] = useState([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -101,21 +103,28 @@ export default function CartPage() {
     if (cartProducts.length > 0) {
       axios.post("/api/cart", { ids: cartProducts }).then((response) => {
         setProducts(response.data);
-        axios.get("/api/address").then((response) => {
-          setName(response.data.name);
-          setEmail(response.data.email);
-          setCity(response.data.city);
-          setZipCode(response.data.zipCode);
-          setState(response.data.state);
-          setDistrict(response.data.district);
-          setStreetAddress(response.data.streetAddress);
-          setComplement(response.data.complement);
-        });
+        
       });
     } else {
       setProducts([]);
     }
   }, [cartProducts]);
+  useEffect(() => {
+    if (!session) {
+      return;
+    }
+    axios.get("/api/address").then((response) => {
+      setName(response.data.name);
+      setEmail(response.data.email);
+      setCity(response.data.city);
+      setZipCode(response.data.zipCode);
+      setState(response.data.state);
+      setDistrict(response.data.district);
+      setStreetAddress(response.data.streetAddress);
+      setComplement(response.data.complement);
+    });
+
+  }, [session])
 
   useEffect(() => {
     if (typeof window === "undefined") {

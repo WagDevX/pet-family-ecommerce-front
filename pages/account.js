@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Input from "@/components/Input";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
+import ProductBox from "@/components/ProductBox";
 
 const ColsWrapper = styled.div`
   display: grid;
@@ -35,7 +36,17 @@ const CityHolder = styled.div`
   gap: 5px;
 `;
 
+const WishedProductsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  @media (max-width: 900px) {
+    grid-template-columns: 0.1fr 0.1fr;
+  }
+`;
+
 export default function AccountPage() {
+  const [wishedProducts, setWishedProducts] = useState([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [city, setCity] = useState("");
@@ -44,7 +55,8 @@ export default function AccountPage() {
   const [district, setDistrict] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [complement, setComplement] = useState("");
-  const [loaded, setLoaded] = useState(false);
+  const [addressLoaded, setAddressLoaded] = useState(true);
+  const [wishlistLoaded, setWishlistLoaded] = useState(true);
   const { data: session } = useSession();
   async function logout() {
     await signOut({
@@ -70,6 +82,11 @@ export default function AccountPage() {
     axios.put("/api/address", data);
   }
   useEffect(() => {
+    if (!session) {
+      return;
+    }
+    setAddressLoaded(false);
+    setWishlistLoaded(false);
     setTimeout(() => {
       axios.get("/api/address").then((response) => {
         setName(response.data.name);
@@ -80,10 +97,19 @@ export default function AccountPage() {
         setDistrict(response.data.district);
         setStreetAddress(response.data.streetAddress);
         setComplement(response.data.complement);
-        setLoaded(true);
+        setAddressLoaded(true);
+      });
+      axios.get("/api/wishlist").then((response) => {
+        setWishedProducts(response.data.map((wp) => wp.product));
+        setWishlistLoaded(true);
       });
     }, 500);
-  }, []);
+  }, [session]);
+  function productRemovedFromWishList(IdToRemove) {
+    setWishedProducts((products) => {
+      return [...products.filter((p) => p._id.toString() !== IdToRemove)];
+    });
+  }
   return (
     <>
       <Header />
@@ -93,16 +119,38 @@ export default function AccountPage() {
             <RevealWrapper delay={0}>
               <Box>
                 <h2>Lista de desejos</h2>
+                {!wishlistLoaded && <Spinner fullWidth={true} />}
+                {wishlistLoaded && wishedProducts.length === 0 && (
+                  <>
+                    {session && <p>Sua lista de desejos está vazia</p>}
+                    {!session && (
+                      <p>Faça login para adicionar itens à lista de desejos</p>
+                    )}
+                  </>
+                )}
+                {wishlistLoaded && (
+                  <WishedProductsGrid>
+                    {wishedProducts.length > 0 &&
+                      wishedProducts.map((wp) => (
+                        <ProductBox
+                          key={wp._id}
+                          {...wp}
+                          wished={true}
+                          onRemoveFromWishList={productRemovedFromWishList}
+                        />
+                      ))}
+                  </WishedProductsGrid>
+                )}
               </Box>
             </RevealWrapper>
           </div>
           <div>
             <RevealWrapper delay={100}>
               <Box>
-                <h2>Minha conta</h2>
-                {!loaded && <Spinner fullWidth={true} />}
+                <h2>{session ? 'Minha conta' : 'Login'}</h2>
+                {!addressLoaded && <Spinner fullWidth={true} />}
 
-                {loaded && (
+                {addressLoaded && session && (
                   <>
                     <Input
                       type="text"
@@ -165,7 +213,6 @@ export default function AccountPage() {
                     <Button onClick={SaveAddress} block="true" primary="true">
                       Salvar dados
                     </Button>
-                    
                   </>
                 )}
                 <hr />
@@ -176,7 +223,7 @@ export default function AccountPage() {
                 )}
                 {!session && (
                   <Button primary="true" onClick={login}>
-                    Entrar
+                    Logar com sua conta do Google
                   </Button>
                 )}
               </Box>

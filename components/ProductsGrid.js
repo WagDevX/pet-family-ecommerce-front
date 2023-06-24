@@ -20,7 +20,7 @@ const StyledProductsGrid = styled.div`
   }
 `;
 
-export default function ProductsGrid({ products, wishedProducts }) {
+export default function ProductsGrid({ products, wishedProducts=[] }) {
   return (
     <StyledProductsGrid>
       {products?.map((product, index) => (

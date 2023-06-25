@@ -30,9 +30,20 @@ const Wrapper = styled.div`
 `;
 
 const NavLink = styled(Link)`
+  transition: all 0.5s ease-in-out;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    to right,
+    #000,
+    #000 50%,
+    ${primary} 50%
+  );
+  background-size: 200% 100%;
+  background-position: -100%;
   min-width: 30px;
   display: block;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
   color: #00bd8e;
   text-decoration: none;
   position: relative;
@@ -45,6 +56,31 @@ const NavLink = styled(Link)`
   }
   svg {
     height: 20px;
+  }
+  &:hover {
+    background-position: 0;
+  }
+  {
+    position: relative;
+  }
+
+  ::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background-color: #000;
+    bottom: 0;
+    left: 0;
+    transform-origin: right;
+    transform: scaleX(0);
+    transition: transform 0.5s ease-in-out;
+  }
+
+  :hover::before {
+    transform-origin: left;
+    transform: scaleX(1);
   }
 `;
 
@@ -91,18 +127,18 @@ const NavButton = styled.button`
    }
 `;
 const SideIcons = styled.div`
-   gap: 10px;
-   display: flex;
-   align-items: center;
-   a {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  a {
     display: inline-block;
     min-width: 20px;
     color: ${primary};
-   }
-   svg {
+  }
+  svg {
     width: 22px;
     height: 22px;
-   }
+  }
 `;
 
 export default function Header() {
@@ -118,10 +154,9 @@ export default function Header() {
             <NavLink href={"/products"}>Produtos</NavLink>
             <NavLink href={"/categories"}>Categorias</NavLink>
             <NavLink href={"/account"}>Conta</NavLink>
-            
           </StyledNav>
           <SideIcons>
-          <StyledCart>
+            <StyledCart>
               <NavLink href={"/cart"}>
                 <Button primary="true" outline="true" className="fa">
                   <CartIcon />
@@ -134,13 +169,13 @@ export default function Header() {
                 )}
               </NavLink>
             </StyledCart>
-          <NavLink href={"/search"}><SearchIcon/></NavLink>
-          <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
-            <BarsIcon />
+            <NavLink href={"/search"}>
+              <SearchIcon />
+            </NavLink>
+            <NavButton onClick={() => setMobileNavActive((prev) => !prev)}>
+              <BarsIcon />
             </NavButton>
           </SideIcons>
-          
-          
         </Wrapper>
       </Center>
     </StyledHeader>

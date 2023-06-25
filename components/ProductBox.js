@@ -26,6 +26,7 @@ const WhiteBox = styled.div`
   padding: 15px;
   width: 160px;
   height: 240px;
+  min-height: 240px;
   text-align: center;
   display: grid;
   align-items: center;

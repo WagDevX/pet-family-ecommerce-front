@@ -35,7 +35,8 @@
   #lblCartCount {
       font-size: 9px;
       background: #00bd8e;
-      color: #fff;
+      -webkit-text-fill-color: white;
+      color: #fff !important;
       padding: 1px 5px 1px 3px;
       vertical-align: top;
       margin-left: -12px; 

@@ -19,19 +19,16 @@ const Title = styled.h1`
   margin: 0;
   font-weight: normal;
   font-size: 3rem;
+  text-align: left;
   @media (max-width: 768px) {
     font-size: 2rem;
   }
 `;
 
-const SubTitle = styled.h4`
-  margin: 1;
-  font-weight: normal;
-`;
-
 const Desc = styled.p`
   color: #00bd8e;
   font-size: 0.8rem;
+  text-align: left;
 `;
 
 const ColumnsWrapper = styled.div`
@@ -39,7 +36,7 @@ const ColumnsWrapper = styled.div`
   grid-template-columns: 0.9fr 1.1fr;
   gap: 90px;
   img {
-    max-width: 50%;
+    max-width: 230px;
     max-height: 100%;
   }
   div:nth-child(1) {
@@ -51,7 +48,7 @@ const ColumnsWrapper = styled.div`
       order: 2;
     }
     img {
-      width: 25vh;
+      width: 18vh;
       border-radius: 15px;
     }
   }
@@ -72,6 +69,19 @@ const ButtonsWrapper = styled.div`
 const StyledNotification = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const CenterImg = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+const ImgColumn = styled(Column)`
+  & > div {
+    width: 100%;
+  }
 `;
 
 export default function Featured({ product }) {
@@ -135,13 +145,13 @@ export default function Featured({ product }) {
             </div>
           </Column>
 
-          <Column>
+          <ImgColumn>
             <RevealWrapper delay={0}>
-              <img src={product.images[0]}></img>
-
-              <img src="https://wagner-nextjs-ecommerce.s3.amazonaws.com/1686553210801.png"></img>
+              <CenterImg>
+                <img src={product.images[0]}></img>
+              </CenterImg>
             </RevealWrapper>
-          </Column>
+          </ImgColumn>
         </ColumnsWrapper>
       </Center>
     </Bg>

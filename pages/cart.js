@@ -15,8 +15,23 @@ const ColumnsWrapper = styled.div`
   grid-template-columns: 1.3fr 0.7fr;
   gap: 20px;
   margin-top: 30px;
+  margin-top: 30px;
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+  }
+  table thead tr th:nth-child(3),
+  table tbody tr td:nth-child(3),
+  table tbody tr.subtotal td:nth-child(2){
+    text-align: right;
+  }
+  table tr.subtotal td{
+    padding: 10px 0;
+  }
+  table tbody tr.subtotal td:nth-child(2){
+    font-size: 1.4rem;
+  }
+  tr.total td{
+    font-weight: bold;
   }
 `;
 
@@ -98,6 +113,7 @@ export default function CartPage() {
   const [streetAddress, setStreetAddress] = useState("");
   const [complement, setComplement] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [shippingFee, setShippingFee] = useState(null);
 
   useEffect(() => {
     if (cartProducts.length > 0) {
@@ -134,6 +150,9 @@ export default function CartPage() {
       setIsSuccess(true);
       clearCart();
     }
+    axios.get("/api/settings?name=shippingFee").then(response => {
+      setShippingFee(response.data.value)
+    })
   }, []);
 
   function moreOfThisProduct(id) {
@@ -143,10 +162,10 @@ export default function CartPage() {
   function lessOfthisProduct(id) {
     removeProduct(id);
   }
-  let total = 0;
+  let productsTotal = 0;
   for (const productId of cartProducts) {
     const price = products.find((p) => p._id === productId)?.price || 0;
-    total += price;
+    productsTotal += price;
   }
 
   async function goToPayment() {
@@ -238,10 +257,17 @@ export default function CartPage() {
                         </td>
                       </tr>
                     ))}
-                    <tr>
-                      <td></td>
-                      <td></td>
-                      <td>R${total.toFixed(2)}</td>
+                    <tr className="subtotal">
+                      <td colSpan={2}>Produtos</td>
+                      <td >R${productsTotal.toFixed(2)}</td>
+                    </tr>
+                    <tr className="subtotal">
+                      <td colSpan={2}>Frete</td>
+                      <td >R${parseInt(shippingFee).toFixed(2)}</td>
+                    </tr>
+                    <tr className="total subtotal">
+                      <td colSpan={2}>Total</td>
+                      <td>R${(productsTotal + parseInt(shippingFee)).toFixed(2)}</td>
                     </tr>
                   </tbody>
                 </Table>

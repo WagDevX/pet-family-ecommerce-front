@@ -7,12 +7,15 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { WishedProduct } from "@/models/WishedProduct";
 import { Setting } from "@/models/Setting";
+import Banner from "@/components/Banner";
+
 
 export default function HomePage({featuredProduct, newProducts, wishedNewProducts}) {
   return (
     <div>
       <Header />
       <Featured product={featuredProduct}/>
+      <Banner/>
       <NewProducts products={newProducts} wishedProducts={wishedNewProducts}/>
     </div>
   )

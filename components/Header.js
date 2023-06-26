@@ -8,6 +8,7 @@ import Button from "./Button";
 import BarsIcon from "./icons/Bars";
 import SearchIcon from "./icons/SearchIcon";
 import { primary } from "@/lib/colors";
+import { TbPawFilled } from 'react-icons/tb'
 
 const StyledHeader = styled.header`
   background-color: #aaffe2;
@@ -17,10 +18,12 @@ const StyledHeader = styled.header`
 `;
 
 const Logo = styled(Link)`
-  color: #000;
+  color: ${primary};
   text-decoration: none;
   position: relative;
   z-index: 3;
+  font-weight: bold;
+  letter-spacing: 1px;
 `;
 
 const Wrapper = styled.div`
@@ -141,6 +144,14 @@ const SideIcons = styled.div`
   }
 `;
 
+const LogoWrapper = styled.div`
+    color: ${primary};
+    display: flex;
+    text-align: inline;
+    justify-contenct: inline;
+    align-items: inline;
+`;
+
 export default function Header() {
   const { cartProducts } = useContext(CartContext);
   const [mobileNavActive, setMobileNavActive] = useState(false);
@@ -148,7 +159,10 @@ export default function Header() {
     <StyledHeader>
       <Center>
         <Wrapper>
+          <LogoWrapper>
+          <TbPawFilled size="1.5em"/>
           <Logo href={"/"}>PetFamily</Logo>
+          </LogoWrapper>
           <StyledNav mobileNavActive={mobileNavActive}>
             <NavLink href={"/"}>Início</NavLink>
             <NavLink href={"/products"}>Produtos</NavLink>

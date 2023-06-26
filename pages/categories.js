@@ -14,6 +14,7 @@ import { WishedProduct } from "@/models/WishedProduct";
 const CategoryGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 15px;
     @media (max-width: 900px) {
         grid-template-columns: .1fr .1fr .1fr .1fr;
         gap: 15px;
@@ -46,7 +47,7 @@ const CategoryWrapper = styled.div`
 
 const ShowAllSquare = styled(Link)`
    background-color: #AAFFE2;
-   height: 250px;
+   height: 275px;
    border-radius: 10px;
    align-items: center;
    display: flex;

@@ -8,7 +8,6 @@ import { CartContext } from "./CartContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { RevealWrapper } from "next-reveal";
-import Banner from "./Banner";
 
 const Bg = styled.div`
   background-color: #aaffe2;

@@ -128,7 +128,7 @@ export default function ProductReviews({ product }) {
           {reviews.length === 0 && <p>Sem avaliações :(</p>}
           {reviews.length > 0 &&
             reviews.map((review) => (
-              <RevieWrapper>
+              <RevieWrapper key={review._id}>
                 <ReviewHeader>
                   <StarsRating
                     size={"sm"}

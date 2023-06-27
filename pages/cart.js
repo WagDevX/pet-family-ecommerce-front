@@ -119,7 +119,6 @@ export default function CartPage() {
     if (cartProducts.length > 0) {
       axios.post("/api/cart", { ids: cartProducts }).then((response) => {
         setProducts(response.data);
-        
       });
     } else {
       setProducts([]);
@@ -220,7 +219,7 @@ export default function CartPage() {
                   </thead>
                   <tbody>
                     {products?.map((product) => (
-                      <tr>
+                      <tr key={product._id}>
                         <ProductInfoCell>
                           <ProductImageBox>
                             <img

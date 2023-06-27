@@ -118,7 +118,7 @@ export default function CategoryPage({
           {showFilters && (
             <FiltersWrapper>
             {category.properties.map((prop, index) => (
-              <RevealWrapper delay={index*50}>
+              <RevealWrapper key={index} delay={index*50}>
               <Filter key={prop.name}>
                 <span>{prop.name}:</span>
                 <select

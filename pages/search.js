@@ -62,7 +62,7 @@ export default function SearchPage() {
           </RevealWrapper>
         </InputWrapper>
         {!isLoading && phrase !== "" && products.length === 0 && (
-          <h1>Nenhum produto encontrado para "{phrase}"</h1>
+          <h1>Nenhum produto encontrado para &quot;{phrase}&quot;</h1>
         )}
         {isLoading && <Spinner fullWidth={true} />}
         {!isLoading && products.length > 0 && (

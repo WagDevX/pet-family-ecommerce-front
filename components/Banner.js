@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import Center from "./Center";
 import { RevealWrapper } from "next-reveal";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const BannerHolder = styled.div`
   margin-top: 30px;
@@ -11,12 +13,18 @@ const BannerHolder = styled.div`
 `;
 
 export default function Banner() {
+  const [bannerImg, setBannerImg] = useState('');
+  useEffect(() => {
+    axios.get('/api/settings?name=bannerFront').then((response) => {
+      setBannerImg(response.data.value)
+    })
+  },[])
   return (
     <Center>
       <RevealWrapper>
         <BannerHolder>
           <img
-            src="https://wagner-nextjs-ecommerce.s3.sa-east-1.amazonaws.com/8865748-ai+(2).png"
+            src={bannerImg}
             alt=""
           />
         </BannerHolder>

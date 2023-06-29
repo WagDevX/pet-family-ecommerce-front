@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { SessionProvider } from "next-auth/react";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "@/components/Footer";
+import { Analytics } from '@vercel/analytics/react';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -33,6 +34,7 @@ export default function App({
         </CartContexrProvider>
         <Footer />
       </SessionProvider>
+      <Analytics />
     </>
   );
 }

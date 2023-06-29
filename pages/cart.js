@@ -17,8 +17,8 @@ const ColumnsWrapper = styled.div`
   gap: 20px;
   margin-top: 30px;
   margin-top: 30px;
-  @media screen and (max-width: 768px) {
-    grid-template-columns: 1fr;
+  table tbody tr.subtotal td:nth-child(2){
+    font-size: 1.4rem;
   }
   table thead tr th:nth-child(3),
   table tbody tr td:nth-child(3),
@@ -28,15 +28,20 @@ const ColumnsWrapper = styled.div`
   table tr.subtotal td{
     padding: 10px 0;
   }
-  table tbody tr.subtotal td:nth-child(2){
-    font-size: 1.4rem;
-  }
+  
   tr.total td{
     font-weight: bold;
   }
-  .price{
-    font-size: 14px;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    table tbody tr.subtotal td:nth-child(2){
+      font-size: 1.1rem;
+    }
+    .price{
+      font-size: 12px;
+    }
   }
+  
 `;
 
 const Box = styled.div`
@@ -110,7 +115,10 @@ const QuantityLabel = styled.span`
   justify-content: center;
   @media (max-width: 768px) {
     display: grid;
-    
+    font-size: 13px;
+    .btn {
+      font-size: 13px;
+    }
   }
 `;
 

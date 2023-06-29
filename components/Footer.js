@@ -22,7 +22,7 @@ const StyledLabel = styled.div`
   margin-top: 10px;
   padding-bottom: 10px; 
   position: relative;
-    font-size: 14px;
+    font-size: 12px;
 `;
 
 const StyledBox = styled.div`

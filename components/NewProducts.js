@@ -12,7 +12,6 @@ return (
     <Center>
         <Title>Produtos</Title>
         <ProductsGrid products={products} wishedProducts={wishedProducts} />
-        <Title>Marcas</Title>
     </Center>
 );
 }

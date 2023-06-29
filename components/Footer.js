@@ -4,8 +4,10 @@ import { NavLink } from "./Header";
 
 const StyledFooter = styled.footer`
   background-color: #aaffe2;
-  margin-top: 20px;
+  margin-top: 30px;
   height: 100%;
+  position: relative;
+  bottom: 0;
 `;
 
 const FooterWrapper = styled.div`

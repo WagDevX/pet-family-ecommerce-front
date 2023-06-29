@@ -10,12 +10,14 @@ import Input from "@/components/Input";
 import { RevealWrapper } from "next-reveal";
 import { useSession } from "next-auth/react";
 
+
 const ColumnsWrapper = styled.div`
   display: grid;
   grid-template-columns: 1.3fr 0.7fr;
   gap: 20px;
   margin-top: 30px;
   margin-top: 30px;
+  min-height: 509px;
   table tbody tr.subtotal td:nth-child(2){
     font-size: 1.4rem;
   }
@@ -195,6 +197,38 @@ export default function CartPage() {
   }
 
   async function goToPayment() {
+    if (name.trim() === "") {
+      alert("Digite seu nome!")
+      return;
+    }
+    if (name.trim() === "") {
+      alert("Digite seu email!")
+      return;
+    }
+    if (city.trim() === "") {
+      alert("Digite sua cidade!")
+      return;
+    }
+    if (zipCode.trim() === "") {
+      alert("Digite seu CEP!")
+      return;
+    }
+    if (state.trim() === "") {
+      alert("Digite seu estado!")
+      return;
+    }
+    if (district.trim() === "") {
+      alert("Digite seu bairro!")
+      return;
+    }
+    if (streetAddress.trim() === "") {
+      alert("Digite seu endereço!")
+      return;
+    }
+    if (complement.trim() === "") {
+      alert("Digite seu complemento!")
+      return;
+    }
     const response = await axios.post("/api/checkout", {
       name,
       email,

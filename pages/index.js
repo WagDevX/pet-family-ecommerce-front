@@ -1,6 +1,7 @@
 import Featured from "@/components/Featured";
 import Header from "@/components/Header";
 import NewProducts from "@/components/NewProducts";
+import Footer from "@/components/Footer";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import { getServerSession } from "next-auth";

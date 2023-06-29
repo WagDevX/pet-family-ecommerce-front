@@ -75,6 +75,18 @@ export default function ProductReviews({ product }) {
   const [reviews, setReviews] = useState([]);
   const [reviewsLoading, setReviewsLoading] = useState(false);
   function submitReview() {
+    if (stars === 0) {
+      alert("Selecione pelo menos uma estrela!");
+      return;
+    }
+    if (title.trim() === "") {
+      alert("Preencha o título!");
+      return;
+    }
+    if (desc.trim() === "") {
+      alert("Preencha a descrição!");
+      return;
+    }
     const data = { title, desc, stars, product: product._id };
     axios.post("/api/reviews", data).then((res) => {
       setTitle("");

@@ -6,7 +6,6 @@ import CartIcon from "./icons/CartIconPlus";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { RevealWrapper } from "next-reveal";
 
 const Bg = styled.div`

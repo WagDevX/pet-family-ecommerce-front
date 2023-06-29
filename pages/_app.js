@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import { CartContexrProvider } from "@/components/CartContext";
 import { ToastContainer } from "react-toastify";
 import { SessionProvider } from "next-auth/react";
+import "react-toastify/dist/ReactToastify.css";
 
 const GlobalStyles = createGlobalStyle`
   body {

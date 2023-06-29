@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import Button from "./Button";
 import { primary } from "@/lib/colors";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import HeartOutlineIcon from "./icons/HeartOutlineIcon";
 import HeartSolidIcon from "./icons/HeartSolidIcon";
 import axios from "axios";

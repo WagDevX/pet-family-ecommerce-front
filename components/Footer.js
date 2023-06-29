@@ -29,7 +29,6 @@ const StyledBox = styled.div`
     margin-top: 10px;
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr;
     justify-content: flex-start;
     border-left: 1px solid rgba(0, 0, 0, 0.03);
     img{

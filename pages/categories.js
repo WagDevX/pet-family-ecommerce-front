@@ -16,11 +16,11 @@ const CategoryGrid = styled.div`
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     gap: 15px;
     @media (max-width: 900px) {
-        grid-template-columns: .1fr .1fr .1fr .1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 15px;
     }
     @media (max-width: 768px) {
-        grid-template-columns: .1fr .1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 15px;
     }
 `;

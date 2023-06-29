@@ -21,7 +21,7 @@ const Logo = styled(Link)`
   color: ${primary};
   text-decoration: none;
   position: relative;
-  z-index: 3;
+  z-index: 10;
   font-weight: bold;
   letter-spacing: 1px;
 `;
@@ -147,9 +147,7 @@ const SideIcons = styled.div`
 const LogoWrapper = styled.div`
     color: ${primary};
     display: flex;
-    text-align: inline;
-    justify-contenct: inline;
-    align-items: inline;
+    z-index: 10;
 `;
 
 export default function Header() {

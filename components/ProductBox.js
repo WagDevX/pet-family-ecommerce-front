@@ -142,6 +142,7 @@ export default function ProductBox({
   const { addProduct } = useContext(CartContext);
   const url = "/product/" + _id;
   const [isWished, setIsWished] = useState(wished);
+  const publicurl = process.env.PUBLIC_URL
   function addToWishList() {
       const nextValue = !isWished;
       if (nextValue === false && onRemoveFromWishList) {
@@ -160,7 +161,7 @@ export default function ProductBox({
         <WishButton wished={isWished} onClick={addToWishList}>
           {isWished ? <HeartSolidIcon/> : <HeartOutlineIcon/>}
         </WishButton>
-        <Link href={"product/" + _id}>
+        <Link href={"/product/" + _id}>
           <img src={images[0]} alt={title} />
         </Link>
         <u>{properties.Marca}</u>

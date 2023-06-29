@@ -34,6 +34,9 @@ const ColumnsWrapper = styled.div`
   tr.total td{
     font-weight: bold;
   }
+  .price{
+    font-size: 14px;
+  }
 `;
 
 const Box = styled.div`
@@ -43,8 +46,13 @@ const Box = styled.div`
   box-shadow: 1px 2px 2px rgba(25, 50, 47, 0.08),
     0px 3px 4px rgba(18, 71, 52, 0.02), 0px 1px 5px rgba(18, 71, 52, 0.03);
   @media screen and (max-width: 768px) {
-    padding: 15px;
+    padding: 10px;
   }
+  .btn {
+    width: 100%;
+    height: 100%;
+  }
+
 `;
 
 const CheckoutBox = styled.div`
@@ -66,6 +74,9 @@ const ProductInfoCell = styled.td`
   display: flex;
   gap: 10px;
   padding: 10px 0px;
+  @media (max-width: 500px) {
+    font-size: 12px;
+  }
 `;
 
 const ProductImageBox = styled.div`
@@ -83,15 +94,23 @@ const ProductImageBox = styled.div`
     max-width: 80px;
     max-height: 80px;
   }
+  @media screen and (max-width: 768px) {
+    img {
+      max-width: 60px;
+      max-height: 60px;
+    }
+  }
 `;
 
 const QuantityLabel = styled.span`
   display: flex;
-  gap: 3px;
+  gap: 2px;
   align-items: center;
   text-align: center;
-  @media screen and (max-width: 768px) {
+  justify-content: center;
+  @media (max-width: 768px) {
     display: grid;
+    
   }
 `;
 
@@ -233,6 +252,7 @@ export default function CartPage() {
                         <td>
                           <QuantityLabel>
                             <Button
+                              className="btn"
                               onClick={() => lessOfthisProduct(product._id)}
                             >
                               -
@@ -242,13 +262,14 @@ export default function CartPage() {
                                 .length
                             }
                             <Button
+                              className="btn"
                               onClick={() => moreOfThisProduct(product._id)}
                             >
                               +
                             </Button>
                           </QuantityLabel>
                         </td>
-                        <td>
+                        <td className="price">
                           R$
                           {(
                             cartProducts.filter((id) => id === product._id)

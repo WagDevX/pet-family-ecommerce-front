@@ -32,8 +32,9 @@ const Wrapper = styled.div`
   padding: 20px 0;
 `;
 
-const NavLink = styled(Link)`
+export const NavLink = styled(Link)`
   transition: all 0.5s ease-in-out;
+  width: auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(
@@ -91,7 +92,18 @@ const StyledNav = styled.nav`
   ${(props) =>
     props.mobileNavActive
       ? `
-  display: block;
+  display: inline-grid;
+  justify-content: left;
+  height: 210px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 3px;
+  @keyframes enter {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   `
       : `
   display: none;
@@ -100,15 +112,16 @@ const StyledNav = styled.nav`
   position: fixed;
   top: 10px;
   bottom: 0;
+  overflow: hidden;
   left: 0;
   right: 0;
-  transition: ease-in-out;
   padding: 50px 20px 20px;
   background-color: #aaffe2;
   @media (min-width: 768px) {
     display: flex;
     position: static;
     padding: 0;
+    
   }
 `;
 

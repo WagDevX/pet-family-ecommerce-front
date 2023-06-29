@@ -4,6 +4,7 @@ import { CartContexrProvider } from "@/components/CartContext";
 import { ToastContainer } from "react-toastify";
 import { SessionProvider } from "next-auth/react";
 import "react-toastify/dist/ReactToastify.css";
+import Footer from "@/components/Footer";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -30,6 +31,7 @@ export default function App({
           <ToastContainer />
           <Component {...pageProps} />
         </CartContexrProvider>
+        <Footer />
       </SessionProvider>
     </>
   );

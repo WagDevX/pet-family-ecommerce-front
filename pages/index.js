@@ -24,6 +24,7 @@ export default function HomePage({
           products={newProducts}
           wishedProducts={wishedNewProducts}
         />
+        
       </div>
     </>
   );

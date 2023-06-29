@@ -8,6 +8,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { WishedProduct } from "@/models/WishedProduct";
 import { Setting } from "@/models/Setting";
 import Banner from "@/components/Banner";
+import { ToastContainer } from "react-toastify";
 
 export default function HomePage({
   featuredProduct,
@@ -20,6 +21,7 @@ export default function HomePage({
         <Header />
         <Featured product={featuredProduct} />
         <Banner />
+        <ToastContainer />
         <NewProducts
           products={newProducts}
           wishedProducts={wishedNewProducts}

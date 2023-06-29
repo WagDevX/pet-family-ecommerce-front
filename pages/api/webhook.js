@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   const sig = req.headers["stripe-signature"];
 
   let event;
-
+  
   try {
     event = stripe.webhooks.constructEvent(await buffer(req), sig, endpointSecret);
   } catch (err) {

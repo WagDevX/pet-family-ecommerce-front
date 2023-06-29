@@ -1,7 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import "@/styles/global.css";
 import { CartContexrProvider } from "@/components/CartContext";
-import { ToastContainer } from "react-toastify";
 import { SessionProvider } from "next-auth/react";
 
 const GlobalStyles = createGlobalStyle`
@@ -22,7 +21,6 @@ export default function App({ Component, pageProps: {session, ...pageProps} }) {
     <>
       <GlobalStyles />
       <SessionProvider session={session}>
-        <ToastContainer />
         <CartContexrProvider>
           <Component {...pageProps} />
         </CartContexrProvider>

@@ -9,6 +9,7 @@ import Table from "@/components/Table";
 import Input from "@/components/Input";
 import { RevealWrapper } from "next-reveal";
 import { useSession } from "next-auth/react";
+import { ToastContainer } from "react-toastify";
 
 const ColumnsWrapper = styled.div`
   display: grid;

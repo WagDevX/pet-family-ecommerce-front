@@ -1,8 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 import "@/styles/global.css";
 import { CartContexrProvider } from "@/components/CartContext";
-import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
+import { SessionProvider } from "next-auth/react";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -17,13 +17,16 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export default function App({ Component, pageProps: {session, ...pageProps} }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <>
       <GlobalStyles />
-      <ToastContainer />
       <SessionProvider session={session}>
         <CartContexrProvider>
+          <ToastContainer />
           <Component {...pageProps} />
         </CartContexrProvider>
       </SessionProvider>

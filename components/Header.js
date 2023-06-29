@@ -98,7 +98,7 @@ const StyledNav = styled.nav`
   `}
   gap: 15px;
   position: fixed;
-  top: 0;
+  top: 10px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -124,7 +124,7 @@ const NavButton = styled.button`
    color: #00bd8e;
    cursor: pointer;
    position: relative;
-  z-index: 3;
+    z-index: 3;
    @media (min-width: 768px) {
     display: none;
    }
@@ -148,6 +148,7 @@ const LogoWrapper = styled.div`
     color: ${primary};
     display: flex;
     z-index: 10;
+    align-items: center;
 `;
 
 export default function Header() {

@@ -3,6 +3,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+}
+hr {
+  display: block;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
 ::-webkit-scrollbar {
     display: none;
 }

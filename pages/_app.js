@@ -1,4 +1,3 @@
-import { createGlobalStyle } from "styled-components";
 import "@/styles/global.css";
 import { CartContexrProvider } from "@/components/CartContext";
 import { ToastContainer } from "react-toastify";
@@ -7,18 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Analytics } from '@vercel/analytics/react';
 import Footer from "@/components/Footer";
 
-const GlobalStyles = createGlobalStyle`
-  body {
-    padding: 0;
-    margin: 0;
-    background-color: #fff;
-  }
-  hr {
-    display: block;
-    border: 0;
-    border-top: 1px solid #ccc;
-  }
-`;
 
 export default function App({
   Component,
@@ -26,7 +13,6 @@ export default function App({
 }) {
   return (
     <>
-      <GlobalStyles />
       <SessionProvider session={session}>
         <CartContexrProvider>
           <ToastContainer />

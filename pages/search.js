@@ -7,6 +7,7 @@ import { debounce } from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import { RevealWrapper } from "next-reveal";
+import Header from "@/components/Header";
 
 const SearchInput = styled(Input)`
   padding: 5px 10px;

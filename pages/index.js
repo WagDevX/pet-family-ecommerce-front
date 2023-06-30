@@ -1,7 +1,6 @@
 import Featured from "@/components/Featured";
 import Header from "@/components/Header";
 import NewProducts from "@/components/NewProducts";
-import Footer from "@/components/Footer";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import { getServerSession } from "next-auth";
@@ -9,19 +8,17 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { WishedProduct } from "@/models/WishedProduct";
 import { Setting } from "@/models/Setting";
 import Banner from "@/components/Banner";
-import Title from "@/components/Title";
 import Center from "@/components/Center";
 import BrandBox from "@/components/BrandBox";
-import styled from "styled-components";
 import { Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
-const BrandsWrapper = styled.div`
-  display: flex;
-  gap: 10px;
+const Title = styled.h1`
+  font-size: 1.5em;
 `;
 
 export default function HomePage({

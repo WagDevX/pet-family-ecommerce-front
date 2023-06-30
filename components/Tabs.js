@@ -1,6 +1,4 @@
-import { primary } from "@/lib/colors";
 import styled from "styled-components";
-import HeartSolidIcon from "./icons/HeartSolidIcon";
 
 const StyledTabs = styled.div`
   display: flex;

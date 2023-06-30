@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Input from "./Input";
-import { primary } from "@/lib/colors";
 import StarsRating from "./StarsRating";
 import Textarea from "./Textarea";
 import Button from "./Button";

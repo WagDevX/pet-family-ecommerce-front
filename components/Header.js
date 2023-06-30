@@ -1,6 +1,6 @@
+import styled from "styled-components";
 import Link from "next/link";
 import Center from "./Center";
-import styled from "styled-components";
 import { useContext, useState } from "react";
 import { CartContext } from "./CartContext";
 import CartIcon from "./icons/CartIcon";
@@ -168,6 +168,7 @@ export default function Header() {
   const { cartProducts } = useContext(CartContext);
   const [mobileNavActive, setMobileNavActive] = useState(false);
   return (
+    <>
     <StyledHeader>
       <Center>
         <Wrapper>
@@ -205,5 +206,6 @@ export default function Header() {
         </Wrapper>
       </Center>
     </StyledHeader>
+    </>
   );
 }

@@ -1,6 +1,5 @@
 import Button from "@/components/Button";
 import Center from "@/components/Center";
-import Header from "@/components/Header";
 import ProductsGrid from "@/components/ProductsGrid";
 import Spinner from "@/components/Spinner";
 import { primary } from "@/lib/colors";
@@ -10,6 +9,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { RevealWrapper } from "next-reveal";
+import Header from "@/components/Header";
 
 const CategoryHeader = styled.div`
   display: grid;
@@ -102,7 +102,7 @@ export default function CategoryPage({
   }, [filtersValues, sort, filtersChanged]);
   return (
     <>
-      <Header />
+    <Header />
       <Center>
         <CategoryHeader>
           <CategoryHeaderTitles>

@@ -1,6 +1,5 @@
 import Button from "@/components/Button";
 import Center from "@/components/Center";
-import Header from "@/components/Header";
 import { signIn, signOut, useSession } from "next-auth/react";
 import styled from "styled-components";
 import { RevealWrapper } from "next-reveal";
@@ -11,6 +10,7 @@ import Spinner from "@/components/Spinner";
 import ProductBox from "@/components/ProductBox";
 import Tabs from "@/components/Tabs";
 import SingleOrder from "@/components/SingleOrder";
+import Header from "@/components/Header";
 
 const ColsWrapper = styled.div`
   display: grid;
@@ -123,7 +123,7 @@ export default function AccountPage() {
   }
   return (
     <>
-      <Header/>
+    <Header />
       <Center>
         <ColsWrapper>
           <div>

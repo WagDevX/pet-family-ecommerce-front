@@ -1,5 +1,4 @@
 import Center from "@/components/Center";
-import Header from "@/components/Header";
 import Input from "@/components/Input";
 import ProductsGrid from "@/components/ProductsGrid";
 import Spinner from "@/components/Spinner";
@@ -50,7 +49,7 @@ export default function SearchPage() {
   }
   return (
     <>
-      <Header />
+    <Header />
       <Center>
         <InputWrapper>
         <RevealWrapper delay={0}>

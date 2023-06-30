@@ -1,5 +1,4 @@
 import Center from "@/components/Center";
-import Header from "@/components/Header";
 import ProductBox from "@/components/ProductBox";
 import { primary } from "@/lib/colors";
 import { Category } from "@/models/Caregory";
@@ -10,6 +9,7 @@ import { RevealWrapper } from "next-reveal";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { WishedProduct } from "@/models/WishedProduct";
+import Header from "@/components/Header";
 
 const CategoryGrid = styled.div`
     display: grid;
@@ -60,7 +60,7 @@ const ShowAllSquare = styled(Link)`
 export default function CategoriesPage({mainCategories, categoriesProducts, wishedProducts=[]}) {
   return (
     <>
-      <Header/>
+    <Header/>
         <Center>
           {mainCategories.map(cat => (
             <CategoryWrapper key={cat._id}>

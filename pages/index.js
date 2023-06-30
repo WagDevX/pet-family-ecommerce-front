@@ -1,5 +1,5 @@
-import Featured from "@/components/Featured";
 import Header from "@/components/Header";
+import Featured from "@/components/Featured";
 import NewProducts from "@/components/NewProducts";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
@@ -16,6 +16,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+
 
 const Title = styled.h1`
   font-size: 1.5em;
@@ -71,7 +72,7 @@ export default function HomePage({
   return (
     <>
       <div>
-        <Header />
+      <Header />
         <Featured product={featuredProduct} />
         <Banner />
         <NewProducts
